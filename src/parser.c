@@ -163,17 +163,17 @@ parse_cmd(FILE *file)
 	char *cmd;
 	int *character;
 	int quotes;
-	Array *line;
+	CC_Array *line;
 	int length;
 	int last_quote;
 	int last_hashtag;
 	int i;
 
-	array_new(&line);
+	cc_array_new(&line);
 
 	character = malloc(sizeof(int));
 	*character = '"';
-	array_add(line, character);
+	cc_array_add(line, character);
 
 	length = 1;
 	last_quote = 0;
@@ -199,7 +199,7 @@ parse_cmd(FILE *file)
 		}
 
 		if (*character != EOF) {
-			array_add(line, character);
+			cc_array_add(line, character);
 			length++;
 		}
 	} while(*character != EOF);
@@ -207,7 +207,7 @@ parse_cmd(FILE *file)
 	if (quotes % 2 == 0) {
 		if (last_hashtag > last_quote) {
 			for (i = length; i > last_quote; i--) {
-				array_remove_at(line, i, (void *)&character);
+				cc_array_remove_at(line, i, (void *)&character);
 				free(character);
 			}
 		}
@@ -218,7 +218,7 @@ parse_cmd(FILE *file)
 		wbk_logger_log(&logger, SEVERE, "Failed parsing command: %s\n", cmd);
 	}
 
-	array_destroy_cb(line, free);
+	cc_array_destroy_cb(line, free);
 
 
 	return cmd;
@@ -299,7 +299,7 @@ parse_binding(FILE *file, int first_character)
 	wbk_b_t *binding;
 	wbk_be_t *be;
 	int *character;
-	Array *line;
+	CC_Array *line;
 	char *str;
 	int length;
 	char *token;
@@ -308,11 +308,11 @@ parse_binding(FILE *file, int first_character)
 
 	binding = wbk_b_new();
 
-	array_new(&line);
+	cc_array_new(&line);
 
 	character = malloc(sizeof(int));
 	*character = first_character;
-	array_add(line, character);
+	cc_array_add(line, character);
 
 	length = 0;
 	do {
@@ -327,7 +327,7 @@ parse_binding(FILE *file, int first_character)
 		} else if (*character != ' ' &&
 				   *character != '\t') {
 			length++;
-			array_add(line, character);
+			cc_array_add(line, character);
 		}
 	} while(*character != EOF);
 
@@ -353,7 +353,7 @@ parse_binding(FILE *file, int first_character)
 	wbk_logger_log(&logger, INFO, "\n");
 
 	free(str);
-	array_destroy_cb(line, free);
+	cc_array_destroy_cb(line, free);
 
 	return binding;
 }

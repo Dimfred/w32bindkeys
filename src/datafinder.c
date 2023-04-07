@@ -50,7 +50,7 @@ wbk_datafinder_new(const char *datadir)
 
 	datafinder = malloc(sizeof(wbk_datafinder_t));
 
-	array_new(&(datafinder->datadir_arr));
+	cc_array_new(&(datafinder->datadir_arr));
 
 	wbk_datafinder_add_datadir(datafinder, datadir);
 
@@ -68,13 +68,13 @@ wbk_datafinder_new(const char *datadir)
 extern int
 wbk_datafinder_free(wbk_datafinder_t *datafinder)
 {
-	ArrayIter iter;
+	CC_ArrayIter iter;
 	char *datadir_iter;
 
-	array_iter_init(&iter, datafinder->datadir_arr);
-	while (array_iter_next(&iter, (void *) &datadir_iter) != CC_ITER_END) {
+	cc_array_iter_init(&iter, datafinder->datadir_arr);
+	while (cc_array_iter_next(&iter, (void *) &datadir_iter) != CC_ITER_END) {
 		free(datadir_iter);
-		array_iter_remove(&iter, NULL);
+		cc_array_iter_remove(&iter, NULL);
 	}
 
 	datafinder->datadir_arr = NULL;
@@ -95,13 +95,13 @@ wbk_datafinder_add_datadir(wbk_datafinder_t *datafinder, const char *datadir)
 	path = malloc(sizeof(char) * (strlen(datadir) + 1));
 	strcpy(path, datadir);
 
-	return array_add(datafinder->datadir_arr, path);
+	return cc_array_add(datafinder->datadir_arr, path);
 }
 
 char *
 wbk_datafinder_gen_path(const wbk_datafinder_t *datafinder, const char *data_file)
 {
-	ArrayIter iter;
+	CC_ArrayIter iter;
 	char *datadir_iter;
 	char *absolute_path;
 	int datadir_len;
@@ -120,9 +120,9 @@ wbk_datafinder_gen_path(const wbk_datafinder_t *datafinder, const char *data_fil
 
 
 	wbk_logger_log(&logger, INFO, "Probing file: %s\n", absolute_path);
-	array_iter_init(&iter, datafinder->datadir_arr);
+	cc_array_iter_init(&iter, datafinder->datadir_arr);
 	while (access(absolute_path, F_OK)
-		   && array_iter_next(&iter, (void *) &datadir_iter) != CC_ITER_END) {
+		   && cc_array_iter_next(&iter, (void *) &datadir_iter) != CC_ITER_END) {
 		free(absolute_path);
 
 		datadir_len = strlen(datadir_iter) + 1;

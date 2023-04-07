@@ -31,14 +31,14 @@
 #ifndef WBK_DATAFINDER_H
 #define WBK_DATAFINDER_H
 
-#include <collectc/array.h>
+#include <collectc/cc_array.h>
 
 typedef struct wbk_datafinder_s
 {
 	/**
-	 * Array of char *
+	 * CC_Array of char *
 	 */
-	Array *datadir_arr;
+	CC_Array *datadir_arr;
 
 	char *execdir;
 

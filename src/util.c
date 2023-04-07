@@ -24,7 +24,7 @@
 
 #include "util.h"
 
-#include <collectc/array.h>
+#include <collectc/cc_array.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -42,18 +42,18 @@
 static wbk_logger_t logger = { "logger" };
 
 char *
-wbk_intarr_to_str(Array *array)
+wbk_intarr_to_str(CC_Array *array)
 {
 	char *str;
 	int *character;
 	int pos;
 	int temp;
-	ArrayIter iter;
+	CC_ArrayIter iter;
 
 	pos = 0;
-	array_iter_init(&iter, array);
+	cc_array_iter_init(&iter, array);
 	str = malloc(0);
-	while (array_iter_next(&iter, (void *) &character) != CC_ITER_END) {
+	while (cc_array_iter_next(&iter, (void *) &character) != CC_ITER_END) {
 		temp = *character;
 
 		str = realloc(str, pos + 1); // TODO

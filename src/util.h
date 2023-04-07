@@ -31,14 +31,14 @@
 #ifndef WBK_UTIL_H
 #define WBK_UTIL_H
 
-#include <collectc/array.h>
+#include <collectc/cc_array.h>
 #include <stdio.h>
 
 /**
  * @return A new string. Free it by yourself.
  */
 extern char *
-wbk_intarr_to_str(Array *array);
+wbk_intarr_to_str(CC_Array *array);
 
 /**
  * @brief Produces an absolute path to the home directory

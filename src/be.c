@@ -91,4 +91,3 @@ wbk_be_compare(const wbk_be_t *be, const wbk_be_t *other)
 	return memcmp(be, other, sizeof(wbk_be_t));
 }
 
-

@@ -28,27 +28,27 @@
 
 int main(void)
 {
-	Array *arr;
+	CC_Array *arr;
 	int *i;
 	char *str;
 
-	array_new(&arr);
+	cc_array_new(&arr);
 
 	i = malloc(sizeof(int));
 	*i = 'a';
-	array_add(arr, i);
+	cc_array_add(arr, i);
 	i = malloc(sizeof(int));
 	*i = 'b';
-	array_add(arr, i);
+	cc_array_add(arr, i);
 	i = malloc(sizeof(int));
 	*i = 'c';
-	array_add(arr, i);
+	cc_array_add(arr, i);
 	i = malloc(sizeof(int));
 	*i = 'd';
-	array_add(arr, i);
+	cc_array_add(arr, i);
 	i = malloc(sizeof(int));
 	*i = '\0';
-	array_add(arr, i);
+	cc_array_add(arr, i);
 
 
 	str = wbk_intarr_to_str(arr);
@@ -58,7 +58,7 @@ int main(void)
 
 	free(str);
 
-	array_destroy_cb(arr, free);
+	cc_array_destroy_cb(arr, free);
 
 	return 0;
 }
